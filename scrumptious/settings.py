@@ -29,6 +29,12 @@ SECRET_KEY = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGIN_REDIRECT_URL = "recipes_list"
+LOGOUT_REDIRECT_URL = "recipes_list"
+
+LOGIN_URL = "login"
+LOGOUT_URL = "logout"  # so LoginRequiredMixin knows where to send you
+
 ALLOWED_HOSTS = ["localhost", ".herokuapp.com"]
 
 

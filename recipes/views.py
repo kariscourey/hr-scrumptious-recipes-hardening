@@ -3,6 +3,8 @@ from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from recipes.forms import RatingForm
 
@@ -40,21 +42,39 @@ class RecipeDetailView(DetailView):
         return context
 
 
-class RecipeCreateView(CreateView):
+class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
     template_name = "recipes/new.html"
-    fields = ["name", "author", "description", "image"]
+    fields = ["name", "description", "image"]
     success_url = reverse_lazy("recipes_list")
 
+    # override form_valid
+    def form_valid(self, form):
+        # get logged in user
+        user = self.request.user
+        # set author attribute of recipe to logged in user
+        form.instance.author = user
+        return super().form_valid(form)
 
-class RecipeUpdateView(UpdateView):
+
+class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     model = Recipe
     template_name = "recipes/edit.html"
-    fields = ["name", "author", "description", "image"]
+    fields = ["name", "description", "image"]
     success_url = reverse_lazy("recipes_list")
 
+    # override form_valid
+    def form_valid(self, form):
+        # get logged in user
+        user = self.request.user
+        # set author attribute of recipe to logged in user
+        form.instance.author = user
+        return super().form_valid(form)
 
-class RecipeDeleteView(DeleteView):
+
+class RecipeDeleteView(LoginRequiredMixin, DeleteView):
     model = Recipe
     template_name = "recipes/delete.html"
     success_url = reverse_lazy("recipes_list")
+
+    # super cool if would only allow user who owns recipe to edit/delete
