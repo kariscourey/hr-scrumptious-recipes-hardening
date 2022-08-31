@@ -26,6 +26,14 @@ class TagCreateView(LoginRequiredMixin, CreateView):
     fields = ["name"]
     success_url = reverse_lazy("tags_list")
 
+    # override form_valid
+    def form_valid(self, form):
+        # get logged in user
+        user = self.request.user
+        # set author attribute of recipe to logged in user
+        form.instance.author = user
+        return super().form_valid(form)
+
 
 class TagUpdateView(LoginRequiredMixin, UpdateView):
     model = Tag
@@ -33,8 +41,24 @@ class TagUpdateView(LoginRequiredMixin, UpdateView):
     fields = ["name"]
     success_url = reverse_lazy("tags_list")
 
+    # override form_valid
+    def form_valid(self, form):
+        # get logged in user
+        user = self.request.user
+        # set author attribute of recipe to logged in user
+        form.instance.author = user
+        return super().form_valid(form)
+
 
 class TagDeleteView(LoginRequiredMixin, DeleteView):
     model = Tag
     template_name = "tags/delete.html"
     success_url = reverse_lazy("tags_list")
+
+    # override form_valid
+    def form_valid(self, form):
+        # get logged in user
+        user = self.request.user
+        # set author attribute of recipe to logged in user
+        form.instance.author = user
+        return super().form_valid(form)
