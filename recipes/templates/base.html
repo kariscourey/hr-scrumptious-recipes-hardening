@@ -18,6 +18,11 @@
                 <li>
                     <a href="{% url 'home' %}">Scrumptious</a>
                 </li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'meal_plans_list' %}">Meal Plans</a>
+                </li>
+                {% endif %}
                 <li>
                     <a href="{% url 'tags_list' %}">Tags</a>
                 </li>
@@ -48,6 +53,7 @@
     </header>
     {% block content %}
     {% endblock content %}
+    <pre>{% debug %}</pre>
 </body>
 
 </html>

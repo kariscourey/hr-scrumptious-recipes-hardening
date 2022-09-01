@@ -31,6 +31,31 @@ class RecipeListView(ListView):
     template_name = "recipes/list.html"
     paginate_by = 2
 
+    # def get_queryset(self):
+    #     # Get the normal queryset
+    #     queryset = super().get_queryset()
+
+    #     print("this is the queryset \n")
+
+    #     # Print it to see what's in it
+    #     print(queryset)
+
+    #     # Return it like nothing ever happened
+    #     return queryset
+
+    # def get_context_data(self, **kwargs):
+    #     # Let the parent class get the context for
+    #     # the actual Post for its detail
+    #     context = super().get_context_data(**kwargs)
+
+    #     # Print it out to see what's in it
+    #     from pprint import pprint
+
+    #     pprint(context)
+
+    #     # Return it like nothing ever happened
+    #     return context
+
 
 class RecipeDetailView(DetailView):
     model = Recipe
@@ -40,6 +65,31 @@ class RecipeDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["rating_form"] = RatingForm()
         return context
+
+    # def get_queryset(self):
+    #     # Get the normal queryset
+    #     queryset = super().get_queryset()
+
+    #     print("this is the queryset \n")
+
+    #     # Print it to see what's in it
+    #     print(queryset)
+
+    #     # Return it like nothing ever happened
+    #     return queryset
+
+    # def get_context_data(self, **kwargs):
+    #     # Let the parent class get the context for
+    #     # the actual Post for its detail
+    #     context = super().get_context_data(**kwargs)
+
+    #     # Print it out to see what's in it
+    #     from pprint import pprint
+
+    #     pprint(context)
+
+    #     # Return it like nothing ever happened
+    #     return context
 
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
@@ -70,6 +120,31 @@ class RecipeUpdateView(LoginRequiredMixin, UpdateView):
         # set author attribute of recipe to logged in user
         form.instance.author = user
         return super().form_valid(form)
+
+    # def get_queryset(self):
+    #     # Get the normal queryset
+    #     queryset = super().get_queryset()
+
+    #     print("this is the queryset \n")
+
+    #     # Print it to see what's in it
+    #     print(queryset)
+
+    #     # Return it like nothing ever happened
+    #     return queryset
+
+    # def get_context_data(self, **kwargs):
+    #     # Let the parent class get the context for
+    #     # the actual Post for its detail
+    #     context = super().get_context_data(**kwargs)
+
+    #     # Print it out to see what's in it
+    #     from pprint import pprint
+
+    #     pprint(context)
+
+    #     # Return it like nothing ever happened
+    #     return context
 
 
 class RecipeDeleteView(LoginRequiredMixin, DeleteView):
