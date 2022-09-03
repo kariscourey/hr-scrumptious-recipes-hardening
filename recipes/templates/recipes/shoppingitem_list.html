@@ -1,0 +1,23 @@
+{% extends 'paginate.html' %}
+
+{% block content %}
+<main class="recipe-grid">
+  <div class="recipe-card">
+    <h1 class="recipe-card-title">
+      {{ user.username }}'s Shopping List
+    </h1>
+    <ul>
+      {% for item in shoppingitem_list %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+    <form method="post" action="/recipes/shopping_items/delete/">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div>
+        <button class="button">Delete All</button>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock content %}

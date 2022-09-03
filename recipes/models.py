@@ -19,6 +19,12 @@ class Recipe(models.Model):
     image = models.URLField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    servings = models.PositiveSmallIntegerField(
+        null=True,
+        validators=[
+            MinValueValidator(1),
+        ],
+    )
 
     def __str__(self):
         if self.author:
@@ -85,3 +91,20 @@ class Rating(models.Model):
         related_name="ratings",
         on_delete=models.CASCADE,
     )
+
+
+class ShoppingItem(models.Model):
+    author = models.ForeignKey(
+        USER_MODEL,
+        related_name="shoppingitem",
+        on_delete=models.CASCADE,
+        null=True,
+    )
+    food_item = models.ForeignKey(
+        "FoodItem",
+        related_name="food_item",
+        on_delete=models.PROTECT,
+    )
+
+    def __str__(self):
+        return self.food_item.name

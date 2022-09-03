@@ -17,6 +17,23 @@
     Created on {{ recipe.created }} |
     Updated on {{ recipe.updated }}
   </p>
+
+  {{ servings_input.value }}
+
+  {% if recipe.servings %}
+  {% load resize %}
+  {% if servings_input is None %}
+  <p>Serves {{ recipe.servings }}</p>
+  {% else %}
+  <p>Serves {{ servings_input }}</p>
+  {% endif %}
+  {% endif %}
+
+
+  <form method="get">
+    <input name="servings_input" type="number" required="True" min="1">
+    <button>Resize</button>
+  </form>
   <form method="post" action="{% url 'recipe_rating' recipe.id %}">
     {% csrf_token %}
     <div class="rating-form-grid">
@@ -36,10 +53,28 @@
     </thead>
     <tbody>
       {% for ingredient in recipe.ingredients.all %}
+      {{ servings_input }}
+      {% if servings_input %}
+      {% load resize %}
+      {{ ingredient| resize_to:servings_input }}
+      {% endif %}
+
       <tr>
         <td>{{ ingredient.amount }}</td>
         <td>{{ ingredient.measure.name }}</td>
         <td>{{ ingredient.food.name }}</td>
+
+        {% if ingredient.food not in food_in_shopping_list %}
+        <td>
+          <form method="post" action="{% url 'shoppingitem_create' %}">
+            {% csrf_token %}
+            <!-- identifies ingredient_id for each food item for a given recipe -->
+            <input type="hidden" name="ingredient_id" value="{{ ingredient.id }}">
+            <button>+ shopping list</button>
+          </form>
+        </td>
+        {% endif %}
+
       </tr>
       {% endfor %}
     </tbody>
