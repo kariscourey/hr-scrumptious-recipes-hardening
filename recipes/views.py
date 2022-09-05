@@ -34,7 +34,7 @@ def log_rating(request, recipe_id):
 class RecipeListView(ListView):
     model = Recipe
     template_name = "recipes/list.html"
-    paginate_by = 2
+    paginate_by = 4
 
     # def get_queryset(self):
     #     # Get the normal queryset
@@ -98,7 +98,7 @@ class RecipeDetailView(DetailView):
         #   key "servings"
         # Store in the context dictionary with the key
         #   "servings"
-        # context["servings"] = self.request.GET("servings_input")
+        context["servings"] = self.request.GET.get("servings_input")
 
         return context
 

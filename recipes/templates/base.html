@@ -7,16 +7,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Recipe - Scrumptious</title>
+    <title>Scrumptious</title>
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
 </head>
 
 <body>
     <header>
+        <h1>Scrumptious</h1>
         <nav>
             <ul>
                 <li>
-                    <a href="{% url 'home' %}">Scrumptious</a>
+                    <a href="{% url 'home' %}">Recipes</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li>
@@ -51,11 +52,13 @@
                 {% endif %}
             </ul>
         </nav>
-        {% block pagination %}
-        {% endblock pagination %}
     </header>
     {% block content %}
     {% endblock content %}
+
+    {% block pagination %}
+    {% endblock pagination %}
+
     <pre>{% debug %}</pre>
 </body>
 
