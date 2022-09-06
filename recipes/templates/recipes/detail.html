@@ -73,7 +73,7 @@
           <form method="post" action="{% url 'shoppingitem_create' %}">
             {% csrf_token %}
             <!-- identifies ingredient_id for each food item for a given recipe -->
-            <input type="hidden" name="ingredient_id" value="{{ ingredient.id }}">
+            <input name="ingredient_id" type="hidden" value="{{ ingredient.id }}">
             <button>+ shopping list</button>
           </form>
         </td>
