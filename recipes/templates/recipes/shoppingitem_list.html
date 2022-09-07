@@ -11,7 +11,9 @@
       <li>{{ item }}</li>
       {% endfor %}
     </ul>
-    <form method="post" action="/recipes/shopping_items/delete/">
+    <!-- <form method="post" action="/recipes/shopping_items/delete/"> -->
+    <form method="post" action="{% url 'shoppingitems_delete' %}">
+
       {% csrf_token %}
       {{ form.as_p }}
       <div>

@@ -202,7 +202,7 @@ class ShoppingItemListView(ListView):
 
 @require_http_methods(["POST"])
 @login_required(login_url="registration/login")
-def ShoppingItemCreate(request):
+def shoppingitem_create(request):
 
     # Get the value for the "ingredient_id" from the
     # request.POST dictionary using the "get" method
@@ -241,7 +241,7 @@ def ShoppingItemCreate(request):
 
 @require_http_methods(["POST"])
 @login_required(login_url="registration/login")
-def ShoppingItemDelete(request):
+def shoppingitems_delete(request):
 
     # Get the current user which is stored in request.user
     user = request.user
